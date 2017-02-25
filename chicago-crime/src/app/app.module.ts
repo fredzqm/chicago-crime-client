@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from 'angularfire2';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { AngularFireModule } from 'angularfire2';
 import { CrimeFormComponent } from './crimeForm.component';
 import { CrimeListComponent } from './crimeList.component';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ export const firebaseConfig = {
 @NgModule({
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
   declarations: [ AppComponent, CrimeFormComponent, CrimeListComponent],
