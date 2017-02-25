@@ -6,6 +6,7 @@ import { AngularFireModule } from 'angularfire2';
 import { CrimeFormComponent } from './crimeForm.component';
 import { CrimeListComponent } from './crimeList.component';
 import { AppComponent } from './app.component';
+import { MapComponent } from './map.component';
 
 
 // Must export the config
@@ -23,7 +24,7 @@ export const firebaseConfig = {
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  declarations: [ AppComponent, CrimeFormComponent, CrimeListComponent],
+  declarations: [ AppComponent, CrimeFormComponent, CrimeListComponent, MapComponent],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {}
