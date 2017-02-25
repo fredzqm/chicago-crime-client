@@ -1,7 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
+
+import { CrimeFormComponent } from './crimeForm.component';
+import { CrimeListComponent } from './crimeList.component';
+import { AppComponent } from './app.component';
+
 
 // Must export the config
 export const firebaseConfig = {
@@ -17,7 +21,7 @@ export const firebaseConfig = {
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, CrimeFormComponent, CrimeListComponent],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {}
