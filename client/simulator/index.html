@@ -1,0 +1,99 @@
+<!doctype html>
+<!--
+  Copyright 2016 Google Inc. All rights reserved.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+      https://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+<head>
+  <title>Crime Reporting Simulator</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBoF2gpK4ISX5Tpov0EFqEI2NhJLFu1JWQ",
+      authDomain: "chicago-crime-c82fb.firebaseapp.com",
+      databaseURL: "https://chicago-crime-c82fb.firebaseio.com",
+      storageBucket: "chicago-crime-c82fb.appspot.com",
+      messagingSenderId: "766373141579"
+    };
+    firebase.initializeApp(config);
+  </script>
+</head>
+<body>
+<div>NumRunners: <input type="text" id="num-runners" value="2" /></div>
+<input type="file" id="file-input" />
+
+<!-- <script src="scripts/main.js"></script> -->
+<script type="text/javascript">
+    // sleep time expects milliseconds
+    function sleep (time) {
+      return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    var contents = "";
+    async function readSingleFile(e) {
+      console.log("HI");
+      var file = e.target.files[0];
+      if (!file) {
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        contents = e.target.result.split("\n");
+        // console.log(contents);
+
+        var numRunners = document.getElementById('num-runners').value;
+        console.log("Running " + numRunners + " runners");
+
+        var sendNextRandom = function() {          
+          var randIndex = Math.floor(Math.random()*contents.length);
+          console.log("Sending value at index " + randIndex);
+          console.log("Sending value " + contents[randIndex]);
+
+          entrySplit = contents[randIndex].split(",");
+          writeNewEntry(entrySplit[0], entrySplit[1], entrySplit[2]);
+
+          sleep(Math.floor(Math.random()*5000)).then(() => {
+            sendNextRandom();
+          });
+        }
+
+        for (var i = 0; i < numRunners; i++){
+          sendNextRandom();
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    document.getElementById('file-input')
+      .addEventListener('change', readSingleFile, false);
+
+    function writeNewEntry(time, location, type) {
+      // A post entry.
+      var crimeEntry = {
+        time: time,
+        location: location,
+        type: type
+      };
+
+      // Get a key for a new Post.
+      var newCrimeEntryKey = firebase.database().ref().child('crimes').push().key;
+
+      var updates = {};
+      updates['/crimes/' + newCrimeEntryKey] = crimeEntry;
+
+      return firebase.database().ref().update(updates);
+    }
+</script>
+</body>
+</html>
