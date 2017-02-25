@@ -6,12 +6,21 @@ import { CrimeListComponent } from './crimeList.component';
 @Component({
   selector: 'my-app',
   template : `
-    <crime-form> </crime-form>
-    <crime-list> </crime-list>
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#">Home</a></li>
+      <li role="presentation"><a href="#">Profile</a></li>
+      <li role="presentation"><a href="#">Messages</a></li>
+    </ul>
+    <div class="container">
+      <crime-form> </crime-form>
+    </div>
+    <div class="container">
+      <crime-list> </crime-list>
+    </div>
   `
 })
 export class AppComponent {
   constructor() {
-    
+
   }
 }
