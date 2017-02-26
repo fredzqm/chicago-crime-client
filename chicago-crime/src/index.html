@@ -92,7 +92,7 @@ function initialize() {
             address += ", CHICAGO, IL";
             console.log(address);
             var client = new HttpClient();
-            client.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + "&key=AIzaSyDHyiI31YHTNIylA6_otrWZWiN5tZiK7QA", function(response) {
+            client.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + "&key=AIzaSyCZEtyrz-Uss0gebYwtSHYsHE3MH7BJlhI", function(response) {
                 responseObj = JSON.parse(response);
                 currCrimes[data.key].lat = responseObj.results[0].geometry.location.lat;
                 currCrimes[data.key].lng = responseObj.results[0].geometry.location.lng;
